@@ -1,7 +1,7 @@
 import { Button, Navbar, TextInput } from 'flowbite-react'
 import { Link , useLocation } from 'react-router-dom'
 import { AiOutlineSearch  } from "react-icons/ai";
-import {FaMoon} from 'react-icons/fa'
+import { FaMoon } from "react-icons/fa6";
 
 import React from 'react'
 
@@ -17,11 +17,13 @@ const Header = () => {
             <span className='px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to bg-pink-500 rounded-lg text-white'>Shivam</span>
             Blog</Link>
             <form> 
-                <TextInput type='text' placeholder='search' rightIcon={AiOutlineSearch} className='hidden lg:inline'/>
+            <TextInput  className='hidden lg:inline' type="text" rightIcon={AiOutlineSearch} placeholder="search" />
+            
             </form>
-            <Button className='w-12 h-10' color='gray' pill> 
+            <Button className='w-12 h-10 lg:hidden' color='gray' pill> 
             <AiOutlineSearch/> 
             </Button>
+
           <Navbar.Collapse>
         <Navbar.Link active={path === '/'} as={'div'}>
           <Link to='/'>Home</Link>
@@ -38,7 +40,7 @@ const Header = () => {
               <FaMoon />
               </Button>
               <Link to='/sign-in'>
-            <Button  gradientDuoTone='purpleToBlue' >
+            <Button  gradientDuoTone='purpleToBlue' outline>
               Sign In
             </Button>
           </Link>
