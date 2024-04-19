@@ -1,14 +1,15 @@
-import { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react'
+import { Alert, Button, Label,  TextInput } from 'flowbite-react'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import { siginError , siginSuccess , signinStart } from '../Redux/Userslice';
 
 const Signin = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const [formdata , setformdata] = useState({})
-  const [errormesg , seterrormesg] = useState(null)
-  const [loading , setloading] = useState(false)
-
+  const {loading , error : errormesg} = useSelector((store) => store.user)
  const handler = (e) => {
    setformdata({...formdata, [e.target.id] : e.target.value.trim()})
    
@@ -18,11 +19,10 @@ const Signin = () => {
  const handlersubmit = async (event) => {
   event.preventDefault()
   if(!formdata.password || !formdata.email){
-    return seterrormesg('please fill out all  fields')
+    return dispatch(siginError('please fill out all  fields'))
   }
   try{
-    setloading(true)
-    seterrormesg(null)
+    dispatch(signinStart());
     const res = await fetch('/api/auth/signin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -31,16 +31,16 @@ const Signin = () => {
       const data = await res.json()
     
       if(data.success === false){
-        return seterrormesg(data.message)
+       dispatch(siginError(data.message))
       }
-     setloading(false)
+     
      if(res.ok){
+      dispatch(siginSuccess(data))
       navigate('/')
      }
   }
   catch(error){
-      seterrormesg(error.message)
-      setloading(false)
+      dispatch(siginError(error.message))
   }
   
 }
@@ -75,7 +75,7 @@ const Signin = () => {
           </form>
           <div className='flex gap-2 mt-5 text-sm'>
             <span>Don't Have an account ?</span>
-            <Link to='/sign-up' className='text-blue-500'>Sign up</Link>
+            <Link to='/sign-up' className='text-blue-500'>Sign in</Link>
           </div>
         {
           errormesg && (
