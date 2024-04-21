@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { siginError , siginSuccess , signinStart } from '../Redux/Userslice';
+import Oauth from '../Components/Oauth';
 
 const Signin = () => {
   const navigate = useNavigate()
@@ -72,6 +73,7 @@ const Signin = () => {
           <Button gradientDuoTone='purpleToPink' type='submit' >
            Sign In
           </Button>
+          <Oauth/>
           </form>
           <div className='flex gap-2 mt-5 text-sm'>
             <span>Don't Have an account ?</span>

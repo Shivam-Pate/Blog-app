@@ -15,22 +15,24 @@ process.exit(1); })
 const app = express();
 
 app.use(express.json());
-app.use('/api/user',userRoute)
-
-app.use('/api/auth',authRoute)
 
 app.listen(3000 , () =>{
     console.log('server is listening on port 3000');
 })
 
+app.use('/api/user',userRoute)
 
-app.use((err , req , res ,next) => {
+app.use('/api/auth',authRoute)
 
-    const statuscode = err.statuscode || 500;
-    const message = err.message || 'Internal server error';
-    res.status(statuscode).json({ 
-        success: false,
-        statuscode,
-        message
-     });
-})
+
+
+
+app.use((err, req, res, next) => {
+    const statusCode = err.statusCode || 500;
+    const message = err.message || 'Internal Server Error';
+    res.status(statusCode).json({
+      success: false,
+      statusCode,
+      message,
+    });
+  });

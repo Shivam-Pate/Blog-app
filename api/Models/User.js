@@ -18,7 +18,11 @@ const userschema = mongoose.Schema({
         type : String,
         required : true,
         unique : true,
-    }
+    },
+    profilepicture : {
+        type : String,
+        default : 'https://img.freepik.com/free-vector/isolated-young-handsome-man-different-poses-white-background-il'
+    },
 }, {timestamps : true})
 
 

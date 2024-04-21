@@ -2,7 +2,7 @@ import { configureStore , combineReducers } from '@reduxjs/toolkit'
 import UserReducer from './Userslice'
 import {persistReducer} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-import persistStore from 'redux-persist/es/persistStore'
+import {persistStore} from 'redux-persist'
 
 
 
@@ -19,7 +19,7 @@ const persistconfig = {
 
 const persistreducer = persistReducer(persistconfig , rootReducer)
 
- const store = configureStore({
+export const store = configureStore({
   reducer: persistreducer,
   middleware : (getDefaultMiddleware) => 
   getDefaultMiddleware({serializableCheck : false})
